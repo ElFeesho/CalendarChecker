@@ -2,11 +2,15 @@ package uk.sawcz.calendarchecker;
 
 import microsoft.exchange.webservices.data.*;
 
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 public class CalendarChecker
@@ -18,6 +22,8 @@ public class CalendarChecker
 
     private final ExecutorService threadService = Executors.newSingleThreadExecutor();
     private final ExecutorService concurrentService = Executors.newFixedThreadPool(3);
+
+
     private final Listener listener;
 
     public static class AppointmentStore
@@ -81,6 +87,10 @@ public class CalendarChecker
 
     public static class PullNotificationChecker implements Runnable
     {
+        private final FileWatcher acceptedWatcher;
+        private final FileWatcher declineWatcher;
+        private final FileWatcher tentativeWatcher;
+
         public interface Listener
         {
             void itemsCreated();
@@ -89,11 +99,71 @@ public class CalendarChecker
         private final ExchangeService service;
         private final PullNotificationChecker.Listener listener;
 
-        public PullNotificationChecker(ExchangeService service, PullNotificationChecker.Listener listener)
+        public PullNotificationChecker(final ExchangeService service, PullNotificationChecker.Listener listener)
         {
             this.service = service;
             this.listener = listener;
+
+            acceptedWatcher = new FileWatcher("outbox/accept/", new FileWatcher.Listener()
+            {
+                @Override
+                public void fileCreated(File file)
+                {
+                    acceptAppointment(file.getName());
+                    file.delete();
+                }
+            });
+
+            declineWatcher = new FileWatcher("outbox/decline/", new FileWatcher.Listener()
+            {
+                @Override
+                public void fileCreated(File file)
+                {
+                    declineAppointment(file.getName());
+                }
+            });
+
+            tentativeWatcher = new FileWatcher("outbox/tentative/", new FileWatcher.Listener()
+            {
+                @Override
+                public void fileCreated(File file)
+                {
+                    tentativeAppointment(file.getName());
+                }
+            });
         }
+
+        private void tentativeAppointment(String id)
+        {
+            System.out.println("TENTATIVE: "+id);
+        }
+
+        private void declineAppointment(String id)
+        {
+            System.out.println("DECLINING "+id);
+
+        }
+
+        private void acceptAppointment(String id)
+        {
+            System.out.println("ACCEPTING "+id);
+            try
+            {
+                System.out.println("Finding "+id);
+
+                Appointment appointment = Appointment.bind(service, ItemId.getItemIdFromString(id.replace("_","/")));
+                if(appointment != null)
+                {
+                    System.out.println("FOUND IT!");
+                    appointment.accept(true);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
 
         @Override
         public void run()
@@ -107,6 +177,9 @@ public class CalendarChecker
             {
                 try
                 {
+                    acceptedWatcher.poll();
+                    declineWatcher.poll();
+                    tentativeWatcher.poll();
                     subscription = service.subscribeToPullNotifications(folder, 1, null, EventType.NewMail, EventType.Created);
                     while (true)
                     {
@@ -135,9 +208,11 @@ public class CalendarChecker
 
     public static class ItemRetriever implements Runnable
     {
+        private Date lastCheckDate = new Date(System.currentTimeMillis()- TimeUnit.DAYS.toMillis(10));
+
         public interface Listener
         {
-            public void itemsRetrieved(List<Item> items);
+            public void itemsRetrieved(List<Appointment> items);
         }
 
         private final ExchangeService service;
@@ -154,12 +229,15 @@ public class CalendarChecker
         {
             try
             {
-                ItemView itemView = new ItemView(25);
-                itemView.getOrderBy().add(ItemSchema.DateTimeReceived, SortDirection.Descending);
+                CalendarView calendarView = new CalendarView(lastCheckDate, new Date(System.currentTimeMillis()+TimeUnit.DAYS.toMillis(10)), 50);
+                lastCheckDate = new Date();
 
-                FindItemsResults<Item> items = service.findItems(WellKnownFolderName.Calendar, itemView);
-                System.out.println("Found items: " + items.getItems().size());
-                listener.itemsRetrieved(items.getItems());
+                FindItemsResults<Appointment> appointments = service.findAppointments(WellKnownFolderName.Calendar, calendarView);
+
+                System.out.println("Found items: " + appointments.getItems().size());
+
+
+                listener.itemsRetrieved(appointments.getItems());
             }
             catch (Exception e)
             {
@@ -174,6 +252,7 @@ public class CalendarChecker
     public CalendarChecker(final Listener listener, String domain, String username, String password, String ewsEndpoint)
     {
         this.listener = listener;
+
         appointmentStore = new AppointmentStore(new AppointmentStore.Listener()
         {
             @Override
@@ -194,18 +273,11 @@ public class CalendarChecker
         final ItemRetriever itemRetriever = new ItemRetriever(service, new ItemRetriever.Listener()
         {
             @Override
-            public void itemsRetrieved(List<Item> items)
+            public void itemsRetrieved(List<Appointment> items)
             {
-                List<Appointment> appointments = new ArrayList<Appointment>();
-
-                for (Item item : items)
-                {
-                    appointments.add((Appointment) item);
-                }
-
                 try
                 {
-                    appointmentStore.storeAppointments(appointments);
+                    appointmentStore.storeAppointments(items);
                 }
                 catch (ServiceLocalException e)
                 {

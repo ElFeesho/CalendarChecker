@@ -3,10 +3,8 @@ package uk.sawcz.calendarchecker;
 import microsoft.exchange.webservices.data.Appointment;
 import microsoft.exchange.webservices.data.ServiceLocalException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.*;
 import java.util.List;
 
 /**
@@ -66,6 +64,7 @@ public class Main
     public static void main(String... args)
     {
         System.out.println("CalendarChecker");
+        final FileInboxOutputWriter fiow = new FileInboxOutputWriter();
         new CalendarCheckerApp(new CalendarCheckerApp.Listener()
         {
             @Override
@@ -73,12 +72,17 @@ public class Main
             {
                 try
                 {
+                    fiow.writeInboxFiles(appointments);
                     for (Appointment appointment : appointments)
                     {
                         System.out.println("Appointment: " + appointment.getSubject() + " " + appointment.getStart());
                     }
                 }
                 catch (ServiceLocalException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (IOException e)
                 {
                     e.printStackTrace();
                 }
