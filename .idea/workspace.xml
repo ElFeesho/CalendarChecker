@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d802ab9-c73e-4c84-8ede-f2944ededa54" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/json-20140107.jar.placeholder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/sawcz/calendarchecker/FileInboxOutputWriter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/uk/sawcz/calendarchecker/FileWatcher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CalendarChecker.iml" afterPath="$PROJECT_DIR$/CalendarChecker.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/sawcz/calendarchecker/CalendarChecker.java" afterPath="$PROJECT_DIR$/src/uk/sawcz/calendarchecker/CalendarChecker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/sawcz/calendarchecker/Main.java" afterPath="$PROJECT_DIR$/src/uk/sawcz/calendarchecker/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CalendarChecker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,23 +68,21 @@
       <file leaf-file-name="CalendarChecker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/sawcz/calendarchecker/CalendarChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3994528" vertical-offset="1823" max-vertical-offset="4410">
-              <caret line="154" column="39" selection-start-line="154" selection-start-column="39" selection-end-line="154" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.9480164" vertical-offset="1092" max-vertical-offset="4890">
+              <caret line="132" column="34" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
               <folding>
                 <element signature="e#3441#3698#0" expanded="true" />
                 <element signature="e#3697#3698#0" expanded="true" />
-                <element signature="e#3766#3989#0" expanded="true" />
-                <element signature="e#3988#3989#0" expanded="true" />
-                <element signature="e#4061#4286#0" expanded="true" />
-                <element signature="e#4285#4286#0" expanded="true" />
-                <element signature="e#4361#4362#0" expanded="true" />
-                <element signature="e#4421#4422#0" expanded="true" />
-                <element signature="e#8207#8474#0" expanded="true" />
-                <element signature="e#8473#8474#0" expanded="true" />
-                <element signature="e#8797#9203#0" expanded="true" />
-                <element signature="e#9202#9203#0" expanded="true" />
-                <element signature="e#9321#9526#0" expanded="true" />
-                <element signature="e#9525#9526#0" expanded="true" />
+                <element signature="e#3766#4024#0" expanded="true" />
+                <element signature="e#4023#4024#0" expanded="true" />
+                <element signature="e#4096#4356#0" expanded="true" />
+                <element signature="e#4355#4356#0" expanded="true" />
+                <element signature="e#9261#9528#0" expanded="true" />
+                <element signature="e#9527#9528#0" expanded="true" />
+                <element signature="e#9851#10257#0" expanded="true" />
+                <element signature="e#10256#10257#0" expanded="true" />
+                <element signature="e#10375#10580#0" expanded="true" />
+                <element signature="e#10579#10580#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -465,7 +457,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1436" height="878" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -485,7 +477,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -626,23 +618,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/sawcz/calendarchecker/CalendarChecker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3994528" vertical-offset="1823" max-vertical-offset="4410">
-          <caret line="154" column="39" selection-start-line="154" selection-start-column="39" selection-end-line="154" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.9480164" vertical-offset="1092" max-vertical-offset="4890">
+          <caret line="132" column="34" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
           <folding>
             <element signature="e#3441#3698#0" expanded="true" />
             <element signature="e#3697#3698#0" expanded="true" />
-            <element signature="e#3766#3989#0" expanded="true" />
-            <element signature="e#3988#3989#0" expanded="true" />
-            <element signature="e#4061#4286#0" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#4361#4362#0" expanded="true" />
-            <element signature="e#4421#4422#0" expanded="true" />
-            <element signature="e#8207#8474#0" expanded="true" />
-            <element signature="e#8473#8474#0" expanded="true" />
-            <element signature="e#8797#9203#0" expanded="true" />
-            <element signature="e#9202#9203#0" expanded="true" />
-            <element signature="e#9321#9526#0" expanded="true" />
-            <element signature="e#9525#9526#0" expanded="true" />
+            <element signature="e#3766#4024#0" expanded="true" />
+            <element signature="e#4023#4024#0" expanded="true" />
+            <element signature="e#4096#4356#0" expanded="true" />
+            <element signature="e#4355#4356#0" expanded="true" />
+            <element signature="e#9261#9528#0" expanded="true" />
+            <element signature="e#9527#9528#0" expanded="true" />
+            <element signature="e#9851#10257#0" expanded="true" />
+            <element signature="e#10256#10257#0" expanded="true" />
+            <element signature="e#10375#10580#0" expanded="true" />
+            <element signature="e#10579#10580#0" expanded="true" />
           </folding>
         </state>
       </provider>

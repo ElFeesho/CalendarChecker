@@ -120,6 +120,7 @@ public class CalendarChecker
                 public void fileCreated(File file)
                 {
                     declineAppointment(file.getName());
+                    file.delete();
                 }
             });
 
@@ -129,6 +130,7 @@ public class CalendarChecker
                 public void fileCreated(File file)
                 {
                     tentativeAppointment(file.getName());
+                    file.delete();
                 }
             });
         }
@@ -136,11 +138,41 @@ public class CalendarChecker
         private void tentativeAppointment(String id)
         {
             System.out.println("TENTATIVE: "+id);
+            try
+            {
+                System.out.println("Finding "+id);
+
+                Appointment appointment = Appointment.bind(service, ItemId.getItemIdFromString(id.replace("_","/")));
+                if(appointment != null)
+                {
+                    System.out.println("FOUND IT!");
+                    appointment.acceptTentatively(true);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
 
         private void declineAppointment(String id)
         {
             System.out.println("DECLINING "+id);
+            try
+            {
+                System.out.println("Finding "+id);
+
+                Appointment appointment = Appointment.bind(service, ItemId.getItemIdFromString(id.replace("_","/")));
+                if(appointment != null)
+                {
+                    System.out.println("FOUND IT!");
+                    appointment.decline(true);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
 
         }
 
