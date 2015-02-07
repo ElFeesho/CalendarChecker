@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Created by sawczc01 on 05/02/2015.
  */
-public class FileWatcher
+public class FileWatcher implements Runnable
 {
     interface Listener
     {
@@ -21,7 +21,8 @@ public class FileWatcher
         this.listener = listener;
     }
 
-    public void poll()
+    @Override
+    public void run()
     {
         System.out.println("Polling...");
 

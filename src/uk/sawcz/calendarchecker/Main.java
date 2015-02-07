@@ -45,7 +45,14 @@ public class Main
 
         public void invoke()
         {
-            calendarChecker.startChecking();
+            try
+            {
+                calendarChecker.startChecking();
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         private CalendarChecker createCalendarCheckerFromStream(InputStream detailsStream) throws IOException
