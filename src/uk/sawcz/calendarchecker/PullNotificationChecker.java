@@ -12,8 +12,10 @@ public class PullNotificationChecker implements Runnable
 {
     public interface Listener
     {
-        void itemsCreated();
+        void itemsCreated(List<Appointment> appointments);
     }
+
+    public static final int TIMEOUT_MINUTES = 1;
 
     private final ExchangeService service;
     private final Listener listener;
@@ -36,7 +38,7 @@ public class PullNotificationChecker implements Runnable
         {
             try
             {
-                pullSubscription = service.subscribeToPullNotifications(folder, 1, null, EventType.NewMail, EventType.Created);
+                pullSubscription = service.subscribeToPullNotifications(folder, TIMEOUT_MINUTES, null, EventType.NewMail, EventType.Created);
             }
             catch (Exception e)
             {
@@ -49,10 +51,12 @@ public class PullNotificationChecker implements Runnable
         try
         {
             events = pullSubscription.getEvents();
-            if (events.getItemEvents().iterator().hasNext())
+            List<Appointment> appointments = new ArrayList<Appointment>();
+            for(ItemEvent event : events.getItemEvents())
             {
-                listener.itemsCreated();
+                appointments.add(Appointment.bind(service, event.getItemId()));
             }
+            listener.itemsCreated(appointments);
         }
         catch (Exception e)
         {

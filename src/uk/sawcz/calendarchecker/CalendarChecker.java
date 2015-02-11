@@ -129,25 +129,15 @@ public class CalendarChecker
 
     public void startChecking() throws InterruptedException
     {
-        final ItemRetriever itemRetriever = new ItemRetriever(service, new ItemRetriever.Listener()
-        {
-            @Override
-            public void itemsRetrieved(List<Appointment> items)
-            {
-                listener.newCalendarEventCreated(items);
-            }
-        });
-
         PullNotificationChecker notificationChecker = new PullNotificationChecker(service, new PullNotificationChecker.Listener()
         {
             @Override
-            public void itemsCreated()
+            public void itemsCreated(List<Appointment> appointments)
             {
-                operationQueue.execute(itemRetriever);
+                listener.newCalendarEventCreated(appointments);
             }
         });
 
-        operationQueue.execute(itemRetriever);
         while (true)
         {
             operationQueue.execute(acceptedWatcher);
