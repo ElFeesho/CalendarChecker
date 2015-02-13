@@ -5,9 +5,6 @@ import microsoft.exchange.webservices.data.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sawczc01 on 06/02/2015.
- */
 public class PullNotificationChecker implements Runnable
 {
     public interface Listener
@@ -47,12 +44,11 @@ public class PullNotificationChecker implements Runnable
             }
         }
 
-        GetEventsResults events = null;
         try
         {
-            events = pullSubscription.getEvents();
+            GetEventsResults events = pullSubscription.getEvents();
             List<Appointment> appointments = new ArrayList<Appointment>();
-            for(ItemEvent event : events.getItemEvents())
+            for (ItemEvent event : events.getItemEvents())
             {
                 appointments.add(Appointment.bind(service, event.getItemId()));
             }

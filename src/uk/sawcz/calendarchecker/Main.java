@@ -4,12 +4,8 @@ import microsoft.exchange.webservices.data.Appointment;
 import microsoft.exchange.webservices.data.ServiceLocalException;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.List;
 
-/**
- * Created by sawczc01 on 05/02/2015.
- */
 public class Main
 {
     public static class CalendarCheckerApp
@@ -34,7 +30,7 @@ public class Main
         {
             try
             {
-                calendarChecker = createCalendarCheckerFromStream(getClass().getResourceAsStream("userdetails.txt"));
+                calendarChecker = createCalendarCheckerFromStream(new FileInputStream("userdetails.txt"));
             }
             catch (IOException e)
             {
